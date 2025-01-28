@@ -8,21 +8,21 @@ class Utilizator(Persoana):
         super().__init__(id_persoana, nume)
         self.carti_imprumutate = []  # lista de obiecte Carte
         self.istoric_imprumuturi = set()  # set de titluri
-        self.contor_imprumuturi = 0  # adăugăm un contor pentru împrumuturi
+        self.contor_imprumuturi = 0  
 
 
     def imprumuta_carte(self, carte):
-        if carte.disponibila:  # Verifică dacă cartea este disponibilă pentru împrumut
+        if carte.disponibila:  
             if carte.titlu not in self.istoric_imprumuturi:
                 self.carti_imprumutate.append(carte)
-                self.istoric_imprumuturi.add(carte.titlu)  # adăugăm titlul în istoric
-                self.contor_imprumuturi += 1  # incrementăm contorul de împrumuturi
-                carte.imprumutata()  # Marca cartea ca împrumutată
-                print(f"Cartea '{carte.titlu}' a fost împrumutată de {self.nume}.")
+                self.istoric_imprumuturi.add(carte.titlu)  
+                self.contor_imprumuturi += 1  
+                carte.imprumutata()  
+                print(f"Cartea '{carte.titlu}' a fost imprumutata de {self.nume}.")
             else:
-                raise CarteDejaImprumutata(f"Cartea '{carte.titlu}' a fost deja împrumutată.")
+                raise CarteDejaImprumutata(f"Cartea '{carte.titlu}' a fost deja imprumutata.")
         else:
-            print(f"Cartea '{carte.titlu}' nu este disponibilă pentru împrumut.")
+            print(f"Cartea '{carte.titlu}' nu este disponibila pentru imprumut.")
 
 
     def returneaza_carte(self, carte):
@@ -31,7 +31,7 @@ class Utilizator(Persoana):
             carte.disponibila = True
             print(f"{self.nume} a returnat cartea '{carte.titlu}'.")
         else:
-            print(f"Cartea '{carte.titlu}' nu a fost imprumutată de {self.nume}.")
+            print(f"Cartea '{carte.titlu}' nu a fost imprumutata de {self.nume}.")
 
     def statistici_personale(self):
 
