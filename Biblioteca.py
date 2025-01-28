@@ -36,7 +36,7 @@ class Biblioteca:
 
         self.lista_carti.extend([carte1, carte2, carte3, carte4, carte5])
 
-        # Incrementăm id-ul pentru cărți
+       
         self.id_carte_next += 5
 
     @logare_actiuni
@@ -84,13 +84,13 @@ class Biblioteca:
             return []
 
     def raport_statistic(self):
-        # Total cărți
+        # Total carti
         total_carti = len(self.lista_carti)
 
-        # Cărți disponibile
+        # Carti disponibile
         carti_disponibile = reduce(lambda acc, carte: acc + (1 if carte.disponibila else 0), self.lista_carti, 0)
 
-        # Cărți împrumutate (diferența între total și disponibile)
+        # Carti imprumutate 
         carti_imprumutate = total_carti - carti_disponibile
 
         # Cele mai populare 3 categorii
@@ -99,11 +99,11 @@ class Biblioteca:
             {})
         cele_mai_populare = sorted(categorii_populare.items(), key=lambda x: x[1], reverse=True)[:3]
 
-        # Cei mai activi utilizatori (cei care au făcut cele mai multe împrumuturi)
+        # Cei mai activi utilizatori 
         activitate_utilizatori = {utilizator: utilizator.contor_imprumuturi for utilizator in self.utilizatori.values()}
         cei_mai_activi = sorted(activitate_utilizatori.items(), key=lambda x: x[1], reverse=True)[:3]
 
-        # Returnează toate statisticile
+        # Returneaza toate statisticile
         return {
             "total_carti": total_carti,
             "carti_imprumutate": carti_imprumutate,
@@ -116,19 +116,19 @@ class Biblioteca:
     def recomanda_carti(self, utilizator):
         recomandari = []
 
-        # 1. Recomandă cărți din aceeași categorie
+        # 1. Recomanda carti din aceeasi categorie
         for carte in utilizator.carti_imprumutate:
             for c in self.lista_carti:
                 if c.categorie == carte.categorie and c not in utilizator.carti_imprumutate:
                     recomandari.append(c)
 
-        # 2. Recomandă cărți populare (cele mai împrumutate)
+        # 2. Recomanda carti populare (cele mai imprumutate)
         carti_populare = sorted(self.lista_carti, key=lambda x: len(x.carti_imprumutate), reverse=True)
         for c in carti_populare[:3]:
             if c not in utilizator.carti_imprumutate:
                 recomandari.append(c)
 
-        # Dacă nu sunt recomandări, returnează un mesaj
+       
         if not recomandari:
             print("Nu există recomandări pe baza cărților împrumutate.")
         else:
@@ -168,9 +168,9 @@ class Biblioteca:
             try:
                 utilizator.imprumuta_carte(carte)
             except CarteDejaImprumutata as e:
-                print(e)  # Afișează mesajul cărții deja împrumutate
+                print(e)  
             except CarteInexistenta as e:
-                print(e)  # Afișează mesajul cărții care nu există
+                print(e)  
         else:
             print("Utilizator sau carte inexistentă.")
 
